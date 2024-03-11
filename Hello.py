@@ -1,51 +1,32 @@
-# Copyright (c) Streamlit Inc. (2018-2022) Snowflake Inc. (2022)
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 import streamlit as st
-from streamlit.logger import get_logger
+import joblib
+#Data
+import numpy as np
+import pandas as pd
+from sklearn.preprocessing import OneHotEncoder
+#Model
+from sklearn.metrics import classification_report, accuracy_score, make_scorer, confusion_matrix
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import cross_val_predict
+from sklearn.metrics import accuracy_score
+from sklearn.svm import SVC
 
-LOGGER = get_logger(__name__)
+#On Web
+st.title('การทำนายระดับผลการเรียน')
+st.markdown('กรุณากรอกข้อมูลให้ครบเพื่อใช้ในการทำนาย')
+st.image('img.png',caption='ขั้นตอนการกรอกผลการเรียนแต่ละวิชาชั้นปีที่ 1')
+st.header('ผลการเรียนแต่ละรายวิชาชั้นปีที่ 1 ')
+col1, col2 = st.columns(2)
+with col1:
+  st.text('สาขา')
+  major1 = st.selectbox("สาขาที่เรียน",('คณิตศาสตร์','สถิติ','ฟิสิกส์','ฟิสิกส์ประยุกต์','เคมี','ชีววิทยา','วิทยาการคอมพิวเตอร์','เทคโนโลยีสารสนเทศ'))
+with col2:
+  st.text('เกรดแต่ละรายวิชาชั้นปีที่ 1')
+  grade1 = st.text_input('copy ผลการเรียนชั้นปีที่ 1')
+re = st.button('Predict class of grade')
 
-
-def run():
-    st.set_page_config(
-        page_title="Hello",
-        page_icon="👋",
-    )
-
-    st.write("# Welcome to Streamlit! 👋")
-
-    st.sidebar.success("Select a demo above.")
-
-    st.markdown(
-        """
-        Streamlit is an open-source app framework built specifically for
-        Machine Learning and Data Science projects.
-        **👈 Select a demo from the sidebar** to see some examples
-        of what Streamlit can do!
-        ### Want to learn more?
-        - Check out [streamlit.io](https://streamlit.io)
-        - Jump into our [documentation](https://docs.streamlit.io)
-        - Ask a question in our [community
-          forums](https://discuss.streamlit.io)
-        ### See more complex demos
-        - Use a neural net to [analyze the Udacity Self-driving Car Image
-          Dataset](https://github.com/streamlit/demo-self-driving)
-        - Explore a [New York City rideshare dataset](https://github.com/streamlit/demo-uber-nyc-pickups)
-    """
-    )
-
-
-if __name__ == "__main__":
-    run()
+#predict
+def predict(data):
+  model_rf = joblib.load('rf_model.sav')
+  return model_rf.predict(data)
