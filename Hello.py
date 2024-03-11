@@ -26,6 +26,7 @@ with col2:
   grade1 = st.text_input('copy ผลการเรียนชั้นปีที่ 1')
 re = st.button('Predict class of grade')
 
+
 #predict
 def predict(data):
   model_rf = joblib.load('rf_model.sav')
