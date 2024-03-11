@@ -31,3 +31,10 @@ re = st.button('Predict class of grade')
 def predict(data):
   model_rf = joblib.load('rf_model.sav')
   return model_rf.predict(data)
+
+#result
+if re:
+  result = predict(arr)
+  st.text(Class[result[0]])
+
+
