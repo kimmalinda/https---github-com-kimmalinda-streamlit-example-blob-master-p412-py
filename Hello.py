@@ -3,7 +3,6 @@ import joblib
 #Data
 import numpy as np
 import pandas as pd
-#Model
 
 
 st.title('การทำนายระดับผลการเรียน')
@@ -24,6 +23,3 @@ with col2:
   ExamPrepare1 = st.selectbox("เตรียมตัวสอบอย่างไร",('ทบทวน อ่านหนังสือคนเดียว','ติวหนังสือกับกลุ่มเพื่อน','ไม่อ่าน'))
 
 re = st.button('Predict class of grade')
-
-
-
