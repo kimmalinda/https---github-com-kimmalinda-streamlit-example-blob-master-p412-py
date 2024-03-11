@@ -3,7 +3,6 @@ import joblib
 #Data
 import numpy as np
 import pandas as pd
-from sklearn.preprocessing import OneHotEncoder
 #Model
 from sklearn.metrics import classification_report, accuracy_score, make_scorer, confusion_matrix
 from sklearn.model_selection import train_test_split
